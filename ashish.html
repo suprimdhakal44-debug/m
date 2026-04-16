@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>For Mayushma ❤️</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .container {
+      text-align: center;
+      background: rgba(255,255,255,0.2);
+      padding: 20px;
+      border-radius: 20px;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 20px rgba(255,255,255,0.6);
+      animation: glow 2s infinite alternate;
+      max-width: 90%;
+      z-index: 2;
+    }
+
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #fff; }
+      to { box-shadow: 0 0 30px #ff4d6d; }
+    }
+
+    h1 { color: #fff; }
+
+    #typing {
+      color: #fff;
+      min-height: 40px;
+    }
+
+    img {
+      width: 220px;
+      height: 220px;
+      object-fit: cover;
+      border-radius: 20px;
+      margin-top: 15px;
+    }
+
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 20px;
+      background: #ff4d6d;
+      color: white;
+      cursor: pointer;
+    }
+
+    .countdown {
+      color: #fff;
+      margin-top: 10px;
+    }
+
+    .hearts {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      bottom: -10px;
+      animation: float 5s linear infinite;
+    }
+
+    @keyframes float {
+      from { transform: translateY(0); }
+      to { transform: translateY(-100vh); }
+    }
+
+    .bg-text span {
+      position: absolute;
+      color: rgba(255,255,255,0.04); /* softer visibility */
+      font-size: 14px;
+      animation: move 12s linear infinite;
+    }
+
+    @keyframes move {
+      from { transform: translateY(100vh); }
+      to { transform: translateY(-100vh); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="bg-text" id="bgText"></div>
+<div class="hearts"></div>
+
+<div class="container">
+  <h1>I Love You Mayushma ❤️</h1>
+  <div id="typing"></div>
+
+  <img id="photo" src="ff.jpeg">
+  <br>
+  <button onclick="startLove()">Click Me 💕</button>
+
+  <div class="countdown" id="countdown"></div>
+</div>
+
+<script>
+  // MUSIC (fixed)
+  const music = new Audio("Until_I_Found_You.mp3");
+  music.loop = true;
+
+  function startLove() {
+    music.play();
+    changePhoto();
+  }
+
+  // Photo Change
+  let photos = ["maya.jpeg","ok.jpeg","nn.jpeg"];
+  let index = 0;
+  function changePhoto() {
+    index = (index + 1) % photos.length;
+    document.getElementById("photo").src = photos[index];
+  }
+
+  // Hearts
+  function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "❤️";
+    heart.style.left = Math.random() * 100 + "vw";
+    document.querySelector(".hearts").appendChild(heart);
+    setTimeout(() => heart.remove(), 5000);
+  }
+  setInterval(createHeart, 300);
+
+  // Typing
+  const text = "You are my happiness, my world, my everything ❤️";
+  let i = 0;
+  function typeEffect() {
+    if (i < text.length) {
+      document.getElementById("typing").innerHTML += text[i];
+      i++;
+      setTimeout(typeEffect, 50);
+    }
+  }
+  typeEffect();
+
+  // Countdown from March 1 2026
+  const targetDate = new Date("2026-03-01T00:00:00");
+  function updateCountdown() {
+    const now = new Date();
+    const diff = now - targetDate;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor((diff / (1000*60*60)) % 24);
+    const minutes = Math.floor((diff / (1000*60)) % 60);
+
+    document.getElementById("countdown").innerHTML =
+      `Together for ${days} days ${hours} hours ${minutes} mins ❤️`;
+  }
+  setInterval(updateCountdown,1000);
+  updateCountdown();
+
+  // Background Text
+  const texts = ["I Love You","Love","Mayushma ❤️"];
+  function createBgText() {
+    const span = document.createElement("span");
+    span.innerText = texts[Math.floor(Math.random()*texts.length)];
+    span.style.left = Math.random()*100 + "vw";
+    document.getElementById("bgText").appendChild(span);
+    setTimeout(()=>span.remove(),10000);
+  }
+  setInterval(createBgText,500);
+</script>
+
+</body>
+</html>
